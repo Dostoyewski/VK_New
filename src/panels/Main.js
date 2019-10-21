@@ -11,6 +11,7 @@ import Icon20CalendarOutline from '@vkontakte/icons/dist/20/calendar_outline';
 import Icon20WorkOutline from '@vkontakte/icons/dist/20/work_outline';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
 import Icon28Profile from '@vkontakte/icons/dist/28/profile';
+import connect from '@vkontakte/vk-connect';
 
 export default class Main extends Component {
   static propTypes = {
@@ -29,8 +30,9 @@ export default class Main extends Component {
     });
   };
   onDonate = (e) => {
-	 this.props.update(PANEL_MAIN, {
-	 activeTab: TAB_DONATE});
+    connect.send("VKWebAppInit", {});
+    connect.send("VKWebAppOpenPayForm", {"app_id": 7175703, "action": "pay-to-group", 
+          "params": {"group_id": 180054668}});
   };
   
 
