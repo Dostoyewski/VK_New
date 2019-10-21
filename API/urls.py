@@ -9,4 +9,6 @@ urlpatterns = [
     path('vlt/getlist/', VolonteerView.as_view()),
     path('shelter/create/', ShelterCreateView.as_view()),
     path('shelter/getlist/', ShelterListView.as_view()),
+    path('task/create/', TaskCreateView.as_view()),
+    path('task/getlist/', TaskListView.as_view()),
 ]
