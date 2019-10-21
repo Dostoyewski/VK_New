@@ -20,6 +20,14 @@ class Volonteer(models.Model):
     urlVK = models.CharField(max_length=100, blank=True)
     phone = PhoneNumberField(null=False, blank=True)
     #Есть ли у Вас медицинские противопоказания, аллергия, в т.ч. на животных?
-    allergy = models.TextField(max_length=500, blank=True, default='Не заполнено')
+    allergy = models.BooleanField(default=False)
     profile_image = models.ImageField(upload_to = 'images', default = 'images/no-img.jpg')
     shelters = models.CharField(max_length=1000, blank=True)
+    card_id = models.CharField(max_length=6, default='AA1234')
+
+class Task(models.Model):
+    exp = models.FloatField(default=0)
+    description = models.TextField(max_length=1200, blank=True, default='Не заполнено')
+    place = models.TextField(max_length=1200, blank=True, default='Не заполнено')
+    date = models.DateField(null=True, blank=True)
+    shelter = models.IntegerField(blank=True)
