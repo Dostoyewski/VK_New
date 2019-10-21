@@ -1,8 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { PanelHeader, FixedLayout, Tabs, TabsItem, Select, FormLayout} from '@vkontakte/vkui';
-import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, PANEL_MAIN } from '../constants';
+import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, TAB_DONATE, PANEL_MAIN } from '../constants';
 import TabEvents from './TabEvents';
+import TabDonate from './TabDonate';
 import TabAccount from './TabAccount';
 import TabMap from './TabMap';
 import TabWork from './TabWork';
@@ -27,6 +28,11 @@ export default class Main extends Component {
       activeTab: e.currentTarget.dataset.id,
     });
   };
+  onDonate = (e) => {
+	 this.props.update(PANEL_MAIN, {
+	 activeTab: TAB_DONATE});
+  };
+  
 
   getTabComponent = () => {
     const { activeTab } = this.props;
@@ -43,6 +49,9 @@ export default class Main extends Component {
 
       case TAB_ACCOUNT:
         return TabAccount;
+		
+	  case TAB_DONATE:
+        return TabDonate;
 
       default:
         return <div>Что-то пошло не так, нет такой вкладки</div>;
@@ -60,8 +69,11 @@ export default class Main extends Component {
         <TabComponent
           {...this.props}
         />
-
-        <FixedLayout vertical="bottom">
+			<div class="fixed-action-btn" style={{bottom:60}}>
+				<a class="btn-floating btn-large waves-effect waves-light red" onClick={this.onDonate}><i class="large material-icons">attach_money</i></a>
+			</div>
+	
+		<FixedLayout vertical="bottom">
           <Tabs>
             <TabsItem
               data-id={TAB_EVENTS}
