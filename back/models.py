@@ -8,6 +8,7 @@ class Shelter(models.Model):
     image = models.ImageField(upload_to = 'images', default = 'images/no-img.jpg')
     members = models.TextField(max_length=500, blank=True, default='')
     urlVK = models.CharField(max_length=100, blank=True)
+    coordinates = models.CharField(max_length=100, blank=True)
 
 class Volonteer(models.Model):
     #Неизменяемые

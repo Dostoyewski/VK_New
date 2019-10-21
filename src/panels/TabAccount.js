@@ -76,17 +76,7 @@ export default class TabAccount extends Component {
                 />
                 <Input
                   top="Номер телефона"
-                  value={'+7 902 888 9900'}
-                  onChange={() => {}}
-                />
-                <Input
-                  top="Место учебы/работы"
-                  value={'РГУ им. А. Н. Косыгина (бывш. МГУДТ)'}
-                  onChange={() => {}}
-                />
-                <Input
-                  top="Владение иностранными языками"
-                  value={'Русский, English'}
+                  value={ global.phone_number }
                   onChange={() => {}}
                 />
               </FormLayout>
