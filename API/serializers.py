@@ -40,7 +40,7 @@ class ShelterDetailSerializer(serializers.ModelSerializer):
         """
         Create and return a new `Shelter` instance, given the validated data.
         """
-        return Snippet.objects.create(**validated_data)
+        return Shelter.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         """
