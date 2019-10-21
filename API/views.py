@@ -31,3 +31,15 @@ class ShelterListView(generics.ListAPIView):
 class ShelterDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = ShelterDetailSerializer
     queryset = Shelter.objects.all()
+
+#Таски
+class TaskCreateView(generics.CreateAPIView):
+    serializer_class = TaskDetailSerializer
+
+class TaskListView(generics.ListAPIView):
+    serializer_class = TaskDetailSerializer
+    queryset = Task.objects.all()
+
+class TaskDetailView(generics.RetrieveUpdateAPIView):
+    serializer_class = TaskDetailSerializer
+    queryset = Task.objects.all()

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from back.models import Volonteer, Shelter
+from back.models import Volonteer, Shelter, Task
 # Create your views here.
 
 class VolonteerDetailSerializer(serializers.ModelSerializer):
@@ -28,6 +28,7 @@ class VolonteerDetailSerializer(serializers.ModelSerializer):
         instance.allergy = validated_data.get('allergy', instance.allergy)
         instance.profile_image = validated_data.get('profile_image', instance.profile_image)
         instance.shelters = validated_data.get('shelters', instance.shelters)
+        instance.card_id = validated_data.get('card_id', instance.card_id)
         instance.save()
         return instance
 
@@ -51,5 +52,28 @@ class ShelterDetailSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image', instance.image)
         instance.members = validated_data.get('members', instance.members)
         instance.urlVK = validated_data.get('urlVK', instance.urlVK)
+        instance.save()
+        return instance
+
+class TaskDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+
+    def create(self, validated_data):
+        """
+        Create and return a new `Task` instance, given the validated data.
+        """
+        return Task.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Task` instance, given the validated data.
+        """
+        instance.exp = validated_data.get('exp', instance.exp)
+        instance.description = validated_data.get('description', instance.description)
+        instance.place = validated_data.get('place', instance.place)
+        instance.date = validated_data.get('date', instance.date)
+        instance.shelter = validated_data.get('shelter', instance.shelter)
         instance.save()
         return instance
