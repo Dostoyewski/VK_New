@@ -55,11 +55,7 @@ export default class Main extends Component {
 
     return (
       <Fragment>
-<<<<<<< HEAD
         <PanelHeader>ПОМОГИ БАРБОСУ</PanelHeader>
-=======
-        <PanelHeader>Помоги Барбосу</PanelHeader>
->>>>>>> 25d3637ab76299a31a5a372f4bb8e6abf2c1fa4b
 
         <TabComponent
           {...this.props}
