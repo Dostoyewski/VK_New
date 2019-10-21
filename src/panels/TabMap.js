@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark, ZoomControl, GeolocationControl } from 'react-yandex-maps';
-import ymaps from "/Users/artem/Documents/git_repositories/hackathon_barbos/VK_New/node_modules/ymaps/dist/ymaps.cjs";
+
 
 
 export default class TabMap extends Component {
