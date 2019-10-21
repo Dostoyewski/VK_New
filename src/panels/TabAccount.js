@@ -15,7 +15,7 @@ export default class TabAccount extends Component {
 
   static defaultProps = {
     userInfo: {
-      first_name: 'Нерг',
+      first_name: 'Негр',
       last_name: 'Танцующий',
       photo_200: 'http://pics.wikireality.ru/upload/thumb/f/f4/82f2426f2971.jpg/300px-82f2426f2971.jpg',
       bdate: '12.11.2000',
