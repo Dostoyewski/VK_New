@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { YMaps, Map } from 'react-yandex-maps';
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
+
 
 export default class TabMap extends Component {
   static propTypes = {
@@ -13,13 +14,16 @@ export default class TabMap extends Component {
       <Fragment>
         <YMaps>
             <div>
-              My awesome application with maps!
-              <Map defaultState={{ center: [55.75, 37.57], zoom: 9 }} />
+              <Map 
+                width={1920}
+                height={1080}
+                defaultState={{ center: [66.547942, 66.600562], zoom: 9 }} >
+              <Placemark geometry={[66.539792, 66.588339]} />
+              </Map>
             </div>
           </YMaps>
-
-        <div style={{ height: 60 }} />
-      </Fragment>
+        <div />
+      </Fragment>      
     );
   }
 }
