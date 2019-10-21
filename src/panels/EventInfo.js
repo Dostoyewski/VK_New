@@ -26,7 +26,7 @@ export default class EventInfo extends Component {
       <Fragment>
         <PanelHeader
           left={<PanelHeaderBack onClick={() => this.props.go(PANEL_MAIN)} />}
-        >ПОЛИТЕХ
+        >Помоги Барбосу
         </PanelHeader>
 
         <div className="EventInfo">
