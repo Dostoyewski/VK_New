@@ -15,10 +15,12 @@ export default class TabAccount extends Component {
 
   static defaultProps = {
     userInfo: {
-      first_name: 'Мирон',
-      last_name: 'Пузанов',
-      photo_200: 'https://sun9-27.userapi.com/c855320/v855320609/d44af/4gDyRzlWMw4.jpg?ava=1',
+      first_name: 'Нерг',
+      last_name: 'Танцующий',
+      photo_200: 'http://pics.wikireality.ru/upload/thumb/f/f4/82f2426f2971.jpg/300px-82f2426f2971.jpg',
       bdate: '12.11.2000',
+	  exp: 280,
+	  level: 1
     },
   };
 
@@ -49,8 +51,12 @@ export default class TabAccount extends Component {
                 <div className="Account__avatar">
                   <img src={userInfo.photo_200} />
                 </div>
-                <div className="Account__name">{userInfo.first_name} {userInfo.last_name}</div>
+                <div className="Account__name">{userInfo.first_name} {userInfo.last_name}, level {userInfo.level}</div>
               </div>
+			  <div className="Account_progress">
+			    <progress value={userInfo.exp} max={300}></progress><br/>
+				{userInfo.exp}/{300}
+			  </div>
             </div>
 
             <div className="Account__data">

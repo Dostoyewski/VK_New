@@ -15,6 +15,7 @@ export const TAB_EVENTS = 'events';
 export const TAB_WORK = 'work';
 export const TAB_MAP = 'map';
 export const TAB_ACCOUNT = 'account';
+export const TAB_DONATE = 'donate';
 
 export const STATUS_DEFAULT = 1;
 export const STATUS_REQUESTED = 2;
