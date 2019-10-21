@@ -7,8 +7,49 @@ class VolonteerDetailSerializer(serializers.ModelSerializer):
         model = Volonteer
         fields = '__all__'
 
+    def create(self, validated_data):
+        """
+        Create and return a new `Volonteer` instance, given the validated data.
+        """
+        return Volonteer.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Volonteer` instance, given the validated data.
+        """
+        instance.events_registered = validated_data.get('events_registered', instance.events_registered)
+        instance.karma = validated_data.get('karma', instance.karma)
+        instance.location = validated_data.get('location', instance.location)
+        instance.birth_date = validated_data.get('birth_date', instance.birth_date)
+        instance.vorname = validated_data.get('vorname', instance.vorname)
+        instance.nachname = validated_data.get('nachname', instance.nachname)
+        instance.urlVK = validated_data.get('urlVK', instance.urlVK)
+        instance.phone = validated_data.get('phone', instance.phone)
+        instance.allergy = validated_data.get('allergy', instance.allergy)
+        instance.profile_image = validated_data.get('profile_image', instance.profile_image)
+        instance.shelters = validated_data.get('shelters', instance.shelters)
+        instance.save()
+        return instance
 
 class ShelterDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shelter
         fields = '__all__'
+
+    def create(self, validated_data):
+        """
+        Create and return a new `Shelter` instance, given the validated data.
+        """
+        return Snippet.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        """
+        Update and return an existing `Shelter` instance, given the validated data.
+        """
+        instance.title = validated_data.get('title', instance.title)
+        instance.description = validated_data.get('description', instance.description)
+        instance.image = validated_data.get('image', instance.image)
+        instance.members = validated_data.get('members', instance.members)
+        instance.urlVK = validated_data.get('urlVK', instance.urlVK)
+        instance.save()
+        return instance
