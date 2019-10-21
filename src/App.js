@@ -1,44 +1,260 @@
-import React, { useState, useEffect } from 'react';
-import connect from '@vkontakte/vk-connect';
-import View from '@vkontakte/vkui/dist/components/View/View';
-import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
+import React, { Component } from 'react';
+import { Root, View, Panel } from '@vkontakte/vkui';
 import '@vkontakte/vkui/dist/vkui.css';
+import './style.css';
+import vkConnect from '@vkontakte/vk-connect';
+import EnterStart from './panels/EnterStart';
+import EnterFinish from './panels/EnterFinish';
 
-import Home from './panels/Home';
-import Persik from './panels/Persik';
+import { VIEW_ENTER, PANEL_MAIN, VIEW_MAIN, PANEL_ENTER_START, PANEL_ENTER_FINISH, panels, panelsOrder, getViewByPanel, VIEW_EVENT_INFO, PANEL_EVENT_INFO, PANEL_EVENT_SENT, VIEW_EVENT_SENT, VIEW_WORK_INFO, PANEL_WORK_INFO, STATUS_DEFAULT, STATUS_REQUESTED, STATUS_APPROVED } from './constants';
+import Main from './panels/Main';
+import EventInfo from './panels/EventInfo';
+import EventSent from './panels/EventSent';
 
-const App = () => {
-	const [activePanel, setActivePanel] = useState('home');
-	const [fetchedUser, setUser] = useState(null);
-	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+export default class App extends Component {
+  constructor(props) {
+    super(props);
 
-	useEffect(() => {
-		connect.subscribe(({ detail: { type, data }}) => {
-			if (type === 'VKWebAppUpdateConfig') {
-				const schemeAttribute = document.createAttribute('scheme');
-				schemeAttribute.value = data.scheme ? data.scheme : 'client_light';
-				document.body.attributes.setNamedItem(schemeAttribute);
-			}
-		});
-		async function fetchData() {
-			const user = await connect.sendPromise('VKWebAppGetUserInfo');
-			setUser(user);
-			setPopout(null);
-		}
-		fetchData();
-	}, []);
+    const currentPanelId = PANEL_MAIN;
+    const currentViewId = getViewByPanel(currentPanelId);
 
-	const go = e => {
-		setActivePanel(e.currentTarget.dataset.to);
-	};
+    this.state = {
+      activeView: currentViewId,
+      activePanels: Object.keys(panelsOrder).reduce((acc, viewId) => {
+        acc[viewId] = panelsOrder[viewId][0];
+        return acc;
+      }, {}),
 
-	return (
-		<View activePanel={activePanel} popout={popout}>
-			<Home id='home' fetchedUser={fetchedUser} go={go} />
-			<Persik id='persik' go={go} />
-		</View>
-	);
+      ...panels.reduce((acc, panelId) => {
+        acc[panelId] = {};
+        return acc;
+      }, {}),
+    };
+  }
+
+  componentDidMount() {
+    vkConnect.subscribe(this.connectListener);
+    vkConnect.send('VKWebAppGetUserInfo', {});
+
+    const events = [
+      {
+        id: 1,
+        title: 'Выставка "Почему?"',
+        cover: 'https://sun9-37.userapi.com/c855236/v855236666/10b3f7/2P8vRgLiN5g.jpg',
+        where: `Открытая коллекция Политехнического музея (Москва, м. Текстильщики, Волгоградский проспект, д. 42, корп. 5, 2 этаж, вход через КПП №3)`,
+        exp: 'от 100 EXP',
+        caption: `Почему опасно перемещаться во времени? Почему мы забываем сны? Почему в носу есть дырки? Почему хомяки боятся летать в космос поодиночке?…`,
+        description: `
+        - Почему опасно перемещаться во времени?<br />
+        - Почему мы забываем сны?<br />
+        - Почему в носу есть дырки?<br />
+        - Почему хомяки боятся летать в космос поодиночке?<br /><br />
+        Попробуйте представить, как могут выглядеть ответы на эти вопросы.
+        Если не получается, приходите на выставку «Почему?» в Открытую коллекцию Политеха.
+        Будем искать образы и ответы вместе с юными художниками и мастерами творческой «Студии ДЭЗ №5».
+        Целый год они сомневались и удивлялись. И теперь вы можете увидеть скульптурные композиции-вопросы, которые участники выставки
+        буквально «встроили» в ряды гигантских электронных вычислительных машин, исторических автомобилей,
+        макетов энергетических установок и телефонных аппаратов. Детский взгляд позволяет по-новому понять и старые вещи, и современное искусство.
+        `,
+        roles: [{
+          name: 'Переноска оборудования',
+          current: 70,
+          need: 100,
+        }, {
+          name: 'Встреча гостей',
+          current: 4,
+          need: 10,
+        }],
+        status: STATUS_DEFAULT,
+      },
+      {
+        id: 2,
+        title: 'Сканирование базы',
+        exp: 'от 200 EXP',
+        where: 'Открытая коллекция Политехнического музея (Москва, м. Текстильщики, Волгоградский проспект, д. 42, корп. 5, 2 этаж, вход через КПП №3)',
+        caption: 'У нас есть интереснейшее задание для Вас, друзья, на днях в нашем музее проходила мастер-класс с французским архитектором. Он вместе с детьми сделали несколько поделок…',
+        roles: [{
+          name: 'Волонтёры',
+          current: 0,
+          need: 1,
+        }],
+        status: STATUS_DEFAULT,
+      },
+      {
+        id: 3,
+        title: 'VK Hackathon 2019',
+        cover: require('./img/hack.jpg'),
+        exp: '499 exp',
+        where: 'Центральный выставочный зал "Манеж", Санкт-Петербург',
+        caption: 'Пятый хакатон пройдет с 27 по 29 сентября. Свои проекты представят 600 участников из 150 команд...',
+        roles: [{
+          id: 1,
+          name: 'Встреча гостей',
+          current: 1,
+          need: 2,
+        }, {
+          id: 2,
+          name: 'Раздача мерча',
+          current: 1,
+          need: 2,
+        }, {
+          id: 3,
+          name: 'Помощь на территории',
+          current: 7,
+          need: 20,
+        }],
+        status: STATUS_APPROVED,
+      },
+    ];
+    this.update(PANEL_MAIN, { events: events });
+  }
+
+  connectListener = (e) => {
+    const { type, data } = e.detail;
+    switch (type) {
+      case 'VKWebAppGetUserInfoResult':
+        this.setState({ userInfo: data });
+        break;
+      case 'VKWebAppGetClientVersionResult':
+        const { version } = data;
+        this.setState({ clientVersion: version });
+        break;
+      case 'VKWebAppAccessTokenReceived': {
+        // const { access_token, secret } = data;
+        break;
+      }
+      case 'VKWebAppAccessTokenFailed':
+        // vkConnect.send('VKWebAppClose', { status: 'error', text: 'Доступ запрещен' });
+        break;
+      default:
+    }
+  };
+
+  updateEventStatus = (eventId, status) => {
+    const events = (this.state[PANEL_MAIN].events || []).map((event) => {
+      if (event.id === eventId) {
+        return { ...event, status };
+      }
+      return event;
+    });
+    this.update(PANEL_MAIN, { events: events });
+  }
+
+  go = (panelId) => {
+    if (!panels.includes(panelId)) {
+      throw new Error('[App.go] panelId is not found in panels');
+    }
+
+    const viewId = getViewByPanel(panelId);
+
+    this.setState({
+      activeView: viewId,
+      activePanels: {
+        ...this.state.activePanels,
+        [viewId]: panelId,
+      },
+    });
+  };
+
+  /**
+   * Обновляет state панели
+   *
+   * @param {string} panelId id панели
+   * @param {object} newState Объект стейта, который нужно смержить с текущим
+   * @param {object} options
+   * @param {function} next Колбек, который будет вызван после обновления стейта
+   */
+  update = (panelId, newState, options = {}, next) => {
+    return new Promise((resolve) => {
+      if (options.clean) {
+        this.setState({ [panelId]: newState }, next || resolve);
+      } else {
+        this.setState((state) => ({
+          [panelId]: {
+            ...state[panelId],
+            ...newState,
+          },
+        }), next || resolve);
+      }
+    });
+  };
+
+  showPopout = (popout) => {
+    this.setState({ popout });
+  };
+
+  hidePopout = () => {
+    this.setState({ popout: null });
+  };
+
+  render() {
+    return (
+      <Root activeView={this.state.activeView} popout={this.state.popout}>
+        <View id={VIEW_ENTER} activePanel={this.state.activePanels[VIEW_ENTER]}>
+          <Panel id={PANEL_ENTER_START} theme="white">
+            <EnterStart
+              {...this.state[PANEL_ENTER_START]}
+              update={this.update}
+              go={this.go}
+            />
+          </Panel>
+
+          <Panel id={PANEL_ENTER_FINISH}>
+            <EnterFinish
+              {...this.state[PANEL_ENTER_FINISH]}
+              update={this.update}
+              go={this.go}
+            />
+          </Panel>
+        </View>
+
+        <View id={VIEW_MAIN} activePanel={this.state.activePanels[VIEW_MAIN]}>
+          <Panel id={PANEL_MAIN}>
+            <Main
+              {...this.state[PANEL_MAIN]}
+              update={this.update}
+              go={this.go}
+              userInfo={this.state.userInfo}
+            />
+          </Panel>
+        </View>
+
+        <View id={VIEW_EVENT_INFO} activePanel={this.state.activePanels[VIEW_EVENT_INFO]}>
+          <Panel id={PANEL_EVENT_INFO}>
+            <EventInfo
+              {...this.state[PANEL_EVENT_INFO]}
+              update={this.update}
+              go={this.go}
+              updateEventStatus={this.updateEventStatus}
+              showPopout={this.showPopout}
+              hidePopout={this.hidePopout}
+            />
+          </Panel>
+        </View>
+
+        <View id={VIEW_EVENT_SENT} activePanel={this.state.activePanels[VIEW_EVENT_SENT]}>
+          <Panel id={PANEL_EVENT_SENT}>
+            <EventSent
+              {...this.state[PANEL_EVENT_SENT]}
+              update={this.update}
+              go={this.go}
+              showPopout={this.showPopout}
+              hidePopout={this.hidePopout}
+              updateEventStatus={this.updateEventStatus}
+            />
+          </Panel>
+        </View>
+
+        <View id={VIEW_WORK_INFO} activePanel={this.state.activePanels[VIEW_WORK_INFO]}>
+          <Panel id={PANEL_WORK_INFO}>
+            <EventSent
+              {...this.state[PANEL_WORK_INFO]}
+              update={this.update}
+              go={this.go}
+            />
+          </Panel>
+        </View>
+      </Root>
+    );
+  }
 }
-
-export default App;
-

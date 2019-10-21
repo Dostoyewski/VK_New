@@ -1,0 +1,45 @@
+.Account__aaa {
+  width: 100px;
+  height: 100px;
+  background-color: #5022A4;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.Account__header {
+  margin: 20px 15px;
+}
+
+.Account__name {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.Account__avatar {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+
+.Account__avatar img {
+  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+}
+
+.Account__data {
+  margin: 0 10px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.Account__dataTabs {
+  margin: 5px 5px 5px;
+}
+
+.Account__dataTabs .Tabs {
+  background: none !important;
+}
