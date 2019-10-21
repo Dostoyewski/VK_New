@@ -29,6 +29,7 @@ export default class Main extends Component {
       activeTab: e.currentTarget.dataset.id,
     });
   };
+  
   onDonate = (e) => {
     connect.send("VKWebAppInit", {});
     connect.send("VKWebAppOpenPayForm", {"app_id": 7175703, "action": "pay-to-group", 
