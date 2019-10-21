@@ -111,10 +111,15 @@ export default class App extends Component {
 
   connectListener = (e) => {
     const { type, data } = e.detail;
+	console.log(data);
     switch (type) {
       case 'VKWebAppGetUserInfoResult':
-        this.setState({ userInfo: data });
-        break;
+	    {
+			data.exp = 280;
+			data.level = 3;
+			this.setState({ userInfo: data });
+			break;
+		}
       case 'VKWebAppGetClientVersionResult':
         const { version } = data;
         this.setState({ clientVersion: version });
