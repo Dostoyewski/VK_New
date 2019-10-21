@@ -27,7 +27,6 @@ export default class EventInfo extends Component {
         <PanelHeader
           left={<PanelHeaderBack onClick={() => this.props.go(PANEL_MAIN)} />}
         >{event.title}
-        >Помоги Барбосу
         </PanelHeader>
 
         <div className="EventInfo">
