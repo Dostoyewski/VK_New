@@ -22,7 +22,7 @@
     "@vkontakte/icons": "^1.10.0",
     "@vkontakte/vk-connect": "^1.6.5",
     "@vkontakte/vk-qr": "^2.0.8",
-    "@vkontakte/vkui": "^2.32.2",
+    "@vkontakte/vkui": "^2.32.3",
     "babel-eslint": "^10.0.3",
     "chalk": "^2.4.2",
     "core-js": "^3.1.4",
@@ -30,7 +30,9 @@
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "vk-qr": "^1.0.0"
+    "react-perfect-scrollbar": "^1.5.3",
+    "vk-qr": "^1.0.0",
+    "vkui": "^1.1.1"
   },
   "browserslist": {
     "production": [

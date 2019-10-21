@@ -1,9 +1,13 @@
+html {
+overflow:hidden;
+}
+
 :root {
-    --accent: #5022A4;
-    --header_background: #5022A4;
-    --button_primary_background: #5022A4;
+    --accent: #32B5FF;
+    --header_background: #1428CC;
+    --button_primary_background: #1428CC;
   
-    --segmented_control_tint: #5022a4;
+    --segmented_control_tint: #1428CC;
   }
   
   img {
@@ -19,7 +23,7 @@
   
     position: relative;
     border-radius: 10px;
-    box-shadow: 0 3px 6px #ACACAC29;
+    box-shadow: 0 3px 6px #32B5FF;
     margin-bottom: 20px;
   }
   .event-main-into{
@@ -38,7 +42,7 @@
     margin-right: 3%;
     position: relative;
     border-radius: 10px;
-    box-shadow: 0 3px 6px #ACACAC29;
+    box-shadow: 0 3px 6px #32B5FF;
     margin-top: 20px;
     padding: 2%;
   }
@@ -80,7 +84,7 @@
     margin-left: 2%;
     margin-right: 2%;
     border-radius: 10px;
-    background-color: #FFFFFF;
+    background-color: #32B5FF;
     box-shadow: 0 3px 6px #ACACAC29;
     margin-bottom: 20px;
   }
@@ -146,7 +150,7 @@
   }
   
   .CardBonus__caption {
-    color: #ADABB1;
+    color: #32B5FF;
     font-size: 14px;
     line-height: 1.4;
     font-style: italic;
@@ -175,3 +179,4 @@
   .EventSent .FormLayout--android .EventSent__title {
     padding: 0 16px;
   }
+	

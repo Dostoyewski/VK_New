@@ -5,7 +5,7 @@ import './style.css';
 import vkConnect from '@vkontakte/vk-connect';
 import EnterStart from './panels/EnterStart';
 import EnterFinish from './panels/EnterFinish';
-
+import PerfectScrollbar from 'react-perfect-scrollbar'
 import { VIEW_ENTER, PANEL_MAIN, VIEW_MAIN, PANEL_ENTER_START, PANEL_ENTER_FINISH, panels, panelsOrder, getViewByPanel, VIEW_EVENT_INFO, PANEL_EVENT_INFO, PANEL_EVENT_SENT, VIEW_EVENT_SENT, VIEW_WORK_INFO, PANEL_WORK_INFO, STATUS_DEFAULT, STATUS_REQUESTED, STATUS_APPROVED } from './constants';
 import Main from './panels/Main';
 import EventInfo from './panels/EventInfo';
