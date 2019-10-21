@@ -1,41 +1,34 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { YMaps, Map, Placemark, ZoomControl, RulerControl } from 'react-yandex-maps';
+
 
 export default class TabMap extends Component {
   static propTypes = {
     update: PropTypes.func.isRequired,
     go: PropTypes.func.isRequired,
   };
+  
 
   render() {
     return (
       <Fragment>
-        <div className="SputnikCard">
-          <div className="SputnikCard__in">
-            <img src={require('../img/card.jpg')} />
-          </div>
-        </div>
+        <YMaps>
+            <div>
+              <Map 
+                width={1000}
+                height={640}
+                defaultState={{ center: [66.540470, 66.707990], zoom: 12 }} >
+                <Placemark geometry={[66.539792, 66.588339]} />
+                <Placemark geometry={[66.5299819,66.6093746]} />
+                <Placemark geometry={[66.5341446,66.6407188]} />
 
-        <div className="CardBonus">
-          <div className="CardBonus__in">
-            <div className="CardBonus__rows">
-              <div className="CardBonus__row">
-                <div className="CardBonus__rowTitle">Музейное безумие</div>
-                <div className="CardBonus__caption">Музейное безумие - это уникальная возможность студентов Москвы совершить бесплатное путешествие по лучшим музеям столицы!</div>
-              </div>
-              <div className="CardBonus__row">
-                <div className="CardBonus__rowTitle">«Ночь кино» в Музее Героев</div>
-                <div className="CardBonus__caption">Музей Героев посвятил прошедшую «Ночь кино» героям, чья жизнь была связана с небом. Показ художественного фильма «Валерий Чкалов» собрал зрителей…</div>
-              </div>
-              <div className="CardBonus__row">
-                <div className="CardBonus__rowTitle">???</div>
-              </div>
+                <ZoomControl options={{ float: 'right' }} />
+              </Map>
             </div>
-          </div>
-        </div>
-
-        <div style={{ height: 60 }} />
-      </Fragment>
+          </YMaps>
+        <div />
+      </Fragment>      
     );
   }
 }
