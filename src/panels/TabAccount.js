@@ -39,11 +39,17 @@ export default class TabAccount extends Component {
     }
     return options;
   }
+	
+  checkboxChange = () => {
+	  // ХЕНДЛЕГ ДЛЯ ЧЕКБОКСА
+	  console.log('Федор хуй');
+  }
 
   render() {
     const { userInfo } = this.props;
     return (
       <Fragment>
+		
         <div className="Account">
           <div className="Account__in">
             <div className="Account__header">
@@ -79,6 +85,12 @@ export default class TabAccount extends Component {
                   value={ global.phone_number }
                   onChange={() => {}}
                 />
+				 <p>&emsp;	    
+				  <label>
+					<input type="checkbox" onChange={this.checkboxChange} />
+					<span>у вас есть аллергия {global.jsn.userId}</span>
+				  </label>
+				</p>
               </FormLayout>
             </div>
           </div>
