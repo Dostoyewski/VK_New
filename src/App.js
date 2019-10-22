@@ -60,11 +60,26 @@ export default class App extends Component {
       });
       }
 
+    RESPVLT = (url) => {
+      fetch(url)
+      .then(response => response.json())
+      .then(result => {
+        global.vlt = result;
+      },
+      // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+      // чтобы не перехватывать исключения из ошибок в самих компонентах.
+      (error) => {
+        console.log(error)
+      });
+      }
+
   componentDidMount() {
     this.RESP('http://127.0.0.1:8000/api/v1/task/getlist/?format=json')
     this.RESPSH('http://127.0.0.1:8000/api/v1/shelter/getlist/?format=json')
+    this.RESPVLT('http://127.0.0.1:8000/api/v1/vlt/getlist/?format=json')
     console.log(global.jsn)
     console.log(global.shelters)
+    console.log(global.vlt)
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
     vkConnect.subscribe(this.connectListener);
