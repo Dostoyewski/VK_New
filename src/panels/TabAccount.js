@@ -2,9 +2,11 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { PanelHeader, FormLayout, FormStatus, Button, Input, PanelHeaderBack, View, Panel, Slider, Select, Group, Div, InfoRow,
   Progress, File, Tabs, TabsItem, Avatar } from '@vkontakte/vkui';
-import Icon28Camera from '@vkontakte/icons/dist/28/camera';
-import Icon24Document from '@vkontakte/icons/dist/24/document';
 import './TabAccount.css';
+import TabAdmin from './TabAdmin';
+import { tsMethodSignature } from '@babel/types';
+
+
 
 export default class TabAccount extends Component {
   static propTypes = {
@@ -12,6 +14,10 @@ export default class TabAccount extends Component {
     update: PropTypes.func.isRequired,
     go: PropTypes.func.isRequired,
   };
+  
+  state = {
+    clicked: 'false'
+  }
 
   static defaultProps = {
     userInfo: {
@@ -29,6 +35,7 @@ export default class TabAccount extends Component {
 
     this.state = {
       value1: 50,
+      loadWorksheep: false
     };
   }
 
@@ -41,21 +48,36 @@ export default class TabAccount extends Component {
   }
 	
   checkboxChange = () => {
-	  // ХЕНДЛЕГ ДЛЯ ЧЕКБОКСА
+	  // ХЕНДЛЕР ДЛЯ ЧЕКБОКСА
 	  console.log('Федор хуй');
   }
 
   render() {
     const { userInfo } = this.props;
+    global.shelters = [
+      {
+      "id": 1,
+      "title": "Центр помощи бездомным животным \"Лучик\" г. Надым",
+      "description": "Приют для бездомных животных города Надым",
+      "image": "http://127.0.0.1:8000/api/v1/shelter/getlist/images/schem.JPG",
+      "members": "",
+      "urlVK": "137239419"
+      },
+      {
+      "id": 2,
+      "title": "Приют города Салехарда",
+      "description": "Приют для бездомных животных",
+      "image": "http://127.0.0.1:8000/api/v1/shelter/getlist/images/no-img.jpg",
+      "members": "",
+      "urlVK": "147993097"
+      }
+      ];
     console.log(global.shelters);
     var searcher = {};
     for (var i = 0; i < global.shelters.length; i++){
       searcher[global.shelters[i].urlVK] = global.shelters[i].title;
-    };
-
-    return (
-      <Fragment>
-		
+      const startPage = (
+        <Fragment>
         <div className="Account">
           <div className="Account__in">
             <div className="Account__header">
@@ -99,7 +121,9 @@ export default class TabAccount extends Component {
 				</p>
         <div className="Account_admin">
               {userInfo.id in searcher &&
-              <p>You are admin of {searcher[userInfo.id]}</p> 
+                <button onClick = {() => { 
+                    this.setState({loadWorksheep: true})
+                }}> Страница администратора</button>
               }
         </div>
               </FormLayout>
@@ -123,6 +147,21 @@ export default class TabAccount extends Component {
 
         <div style={{ height: 60 }} />
       </Fragment>
+      );
+
+    return (
+      <div>{ this.state.loadWorksheep ? <WorksheetSelector/> : startPage }</div>
     );
   }
+  }
 }
+
+function WorksheetSelector(props) {
+  return (
+      <div>
+          <h1>Выберите группы</h1>
+          <button>Next step</button>
+      </div>
+  );
+}
+
