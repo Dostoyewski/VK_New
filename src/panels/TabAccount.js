@@ -42,6 +42,7 @@ export default class TabAccount extends Component {
 
   render() {
     const { userInfo } = this.props;
+    console.log(global.jsn)
     return (
       <Fragment>
         <div className="Account">
@@ -77,6 +78,11 @@ export default class TabAccount extends Component {
                 <Input
                   top="Номер телефона"
                   value={ global.phone_number }
+                  onChange={() => {}}
+                />
+                <Input
+                  top="data"
+                  value={ global.jsn[0].id }
                   onChange={() => {}}
                 />
               </FormLayout>

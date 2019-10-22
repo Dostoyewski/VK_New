@@ -33,7 +33,24 @@ export default class App extends Component {
     };
   }
 
+  RESP = (url) => {
+    fetch(url)
+    .then(response => response.json())
+    .then(result => {
+      global.jsn = result;
+      console.log(result)
+      console.log(global.jsn, 1)
+    },
+    // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+    // чтобы не перехватывать исключения из ошибок в самих компонентах.
+    (error) => {
+      console.log(error)
+    });
+    }
+
   componentDidMount() {
+    this.RESP('http://127.0.0.1:8000/api/v1/shelter/getlist/?format=json')
+    console.log(global.jsn)
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
     vkConnect.subscribe(this.connectListener);
@@ -49,6 +66,7 @@ export default class App extends Component {
         // Handling an error
       })
     
+
     const events = [
       {
         id: 1,
