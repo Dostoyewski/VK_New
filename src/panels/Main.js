@@ -1,11 +1,13 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { PanelHeader, FixedLayout, Tabs, TabsItem, Select, FormLayout} from '@vkontakte/vkui';
-import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, PANEL_MAIN } from '../constants';
+import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, PANEL_MAIN, TAB_LOST, TAB_DONATE } from '../constants';
 import TabEvents from './TabEvents';
 import TabAccount from './TabAccount.js';
 import TabMap from './TabMap';
 import TabWork from './TabWork';
+import TabLost from './TabLost';
+import TabDonate from './TabDonate';
 import Icon20CalendarOutline from '@vkontakte/icons/dist/20/calendar_outline';
 import Icon20WorkOutline from '@vkontakte/icons/dist/20/work_outline';
 import Icon24Globe from '@vkontakte/icons/dist/24/globe';
@@ -29,9 +31,12 @@ export default class Main extends Component {
     });
   };
   onDonate = (e) => {
-    connect.send("VKWebAppInit", {});
+    /*connect.send("VKWebAppInit", {});
     connect.send("VKWebAppOpenPayForm", {"app_id": 7175703, "action": "pay-to-group", 
-          "params": {"group_id": 180054668}});
+          "params": {"group_id": 180054668}});*/
+    this.props.update(PANEL_MAIN, {
+      activeTab: TAB_DONATE,
+    });
   };
   
 
@@ -50,6 +55,12 @@ export default class Main extends Component {
 
       case TAB_ACCOUNT:
         return TabAccount;
+      
+        case TAB_LOST:
+        return TabLost;
+
+        case TAB_DONATE:
+        return TabDonate;
 
       default:
         return <div>Что-то пошло не так, нет такой вкладки</div>;
@@ -90,6 +101,13 @@ export default class Main extends Component {
               selected={activeTab === TAB_MAP}
               onClick={this.onTabClick}
             ><Icon24Globe width={25} height={25}/></TabsItem>
+
+            <TabsItem
+              data-id={TAB_LOST}
+              selected={activeTab === TAB_LOST}
+              onClick={this.onTabClick}
+            > <i class="material-icons">error_outline</i></TabsItem>
+
 
             <TabsItem
               data-id={TAB_ACCOUNT}
