@@ -75,6 +75,7 @@ export default class TabAccount extends Component {
       }
       ];
     console.log(global.shelters);
+    
     var flag = false;
     for (var i = 0; i < global.vlt.length; i++){
       if (global.vlt[i].urlVK === (global.user_info.id).toString()) {
@@ -193,10 +194,7 @@ export default class TabAccount extends Component {
 
 function WorksheetSelector(props) {
   return (
-      <div>
-          <h1>Выберите группы</h1>
-          <button>Next step</button>
-      </div>
+    <TabAdmin></TabAdmin>
   );
 }
 

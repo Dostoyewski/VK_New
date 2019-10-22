@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
+import Checkout from './AddIvent/Checkout';
+
 
 export default class TabAdmin extends Component {
   static propTypes = {
@@ -15,15 +17,23 @@ export default class TabAdmin extends Component {
     super(props);
 
     this.state = {
-
+        title: "",
+        date: "",
+        shelter: "",
+        allergy: "",
+        place: "",
+        status: "",
+        description: "", 
     };
-
+    global.that = this
   }
-
+ 
   render() {
     const {  } = this.props;
     return (
-        <div>Страница админа</div>
+        <Checkout>
+
+        </Checkout>
     );
   }
 }
