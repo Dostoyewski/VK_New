@@ -21,7 +21,14 @@ export default class EventInfo extends Component {
 
   render() {
     const { event } = this.props;
-
+	
+	var shelter;
+	for (var i=0; i< global.shelters.length; i++){
+		if (event.shelter === global.shelters[i].id){
+			shelter = global.shelters[i];
+		}
+	}
+	
     return (
       <Fragment>
         <PanelHeader
@@ -60,7 +67,7 @@ export default class EventInfo extends Component {
             </div>}
 
             <div className="EventInfo__title">{event.title}</div>
-            {event.place && <div className="EventInfo__where">{event.place}</div>}
+            {event.place && <div className="EventInfo__where">{event.place}<br/>{shelter.title}<br/>{event.date}</div>}
 
           
 
@@ -72,12 +79,22 @@ export default class EventInfo extends Component {
             <div className="EventInfo__footer">
               {event.status === STATUS_DEFAULT &&
               <Button size="xl" onClick={() => {
+				fetch('http://127.0.0.1:8000/api/v1/task/detail/'+event.id, {method: 'PUT', // Method itself
+																			 headers: {
+																			  'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+																			 },
+																			 body: JSON.stringify({'id': event.id, 'status': 2}) })
                 this.props.update(PANEL_EVENT_SENT, { event });
                 this.props.go(PANEL_EVENT_SENT);
               }}>Подать заявку</Button>}
 
               {event.status === STATUS_REQUESTED &&
               <Button size="xl" onClick={() => {
+				  fetch('http://127.0.0.1:8000/api/v1/task/detail/'+event.id, {method: 'PUT', // Method itself
+																			 headers: {
+																			  'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+																			 },
+																			 body: JSON.stringify({'id': event.id, 'status': 1}) })
                 this.props.updateEventStatus(event.id, STATUS_DEFAULT);
                 this.props.update(PANEL_EVENT_INFO, {
                   event: {

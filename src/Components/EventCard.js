@@ -8,7 +8,7 @@ import Role from './Role';
 function EventCard(props) {
   const { title, where, caption, exp, roles, onClick } = props;
 
-  return (
+  return ( <div>{title === null ? (<div></div>) : (
     <div className="EventCard" onClick={onClick}>
       <div className="EventCard__in">
         <div className="EventCard__header">
@@ -36,8 +36,8 @@ function EventCard(props) {
           {caption}
         </div>
       </div>
-    </div>
-  );
+    </div>)
+  }</div>);
 }
 
 EventCard.propTypes = {

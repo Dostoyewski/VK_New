@@ -40,13 +40,13 @@ export default class TabWork extends Component {
             onClick={() => this.props.update(PANEL_MAIN, { workActiveTab: WORK_TAB_ALL })}
             selected={this.props.workActiveTab === WORK_TAB_ALL}
           >
-            Поданные
+            Зарегистрированные
           </TabsItem>
           <TabsItem
             onClick={() => this.props.update(PANEL_MAIN, { workActiveTab: WORK_TAB_APPROVED })}
             selected={this.props.workActiveTab === WORK_TAB_APPROVED}
           >
-            Подтвержденные
+            Выполненные
           </TabsItem>
         </Tabs>
 

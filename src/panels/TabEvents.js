@@ -17,18 +17,17 @@ export default class TabEvents extends Component {
 
   render() {
     const items = this.props.events;
-
     return (
       <Fragment>
         {!items.length && <Footer>Ничего не найдено</Footer>}
         {items.map((event) => {
           return (
             <EventCard
-              key={event.id}
-              title={event.title}
-              exp={event.exp}
-              where={event.place}
-              caption={event.description}
+              key={event.status==STATUS_DEFAULT ? event.id : null}
+              title={event.status==STATUS_DEFAULT ? event.title : null  }
+              exp={event.status==STATUS_DEFAULT ? event.exp : null  }
+              where={event.status==STATUS_DEFAULT ? event.place : null  }
+              caption={event.status==STATUS_DEFAULT ? event.description : null}
               onClick={() => {
                 this.props.update(PANEL_EVENT_INFO, { event });
                 this.props.go(PANEL_EVENT_INFO);

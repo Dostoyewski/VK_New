@@ -26,6 +26,7 @@ export default class EventSent extends Component {
           <div className="EventSent__in">
             <FormLayout>
               <div className="EventSent__title">{event.title}</div>
+				<div>НАЖИМАЯ КНОПКУ ВЫ СОГЛАШАЕТЕСЬ С ЛИЦЕНЗИОННЫМ СОГЛАШЕНИЕМ И ТЕМ, ЧТО ВЫ БУДЕТЕ ОБЯЗАНЫ СДАТЬ 6 ЛАБОРАТОРНЫХ ПО ЧИСЛЕННЫМ МЕТОДАМ</div>
               {Array.isArray(event.roles) && event.roles.length > 0 &&
               <FormLayoutGroup top="Выберите должность">
                 {event.roles.map((role, index) => {
