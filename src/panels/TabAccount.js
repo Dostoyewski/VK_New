@@ -50,6 +50,16 @@ export default class TabAccount extends Component {
   checkboxChange = () => {
 	  // ХЕНДЛЕР ДЛЯ ЧЕКБОКСА
 	  console.log('Федор хуй');
+	  fetch('http://127.0.0.1:8000/api/v1/vlt/detail/'+global.vlt[global.vlt_i].id, {
+      method: 'PUT', // Method itself
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+      'id': global.vlt[global.vlt_i].id,
+	  'allergy': !global.vlt[global.vlt_i].allergy
+      })})
   }
 
   
@@ -61,8 +71,9 @@ export default class TabAccount extends Component {
     var flag = false;
     for (var i = 0; i < global.vlt.length; i++){
       if (global.vlt[i].urlVK === (global.user_info.id).toString()) {
-
+		global.vlt_i = i;
         flag = true;
+		console.log(global.vlt[global.vlt_i]);
       }
     } 
   
@@ -100,11 +111,11 @@ export default class TabAccount extends Component {
                 <div className="Account__avatar">
                   <img src={userInfo.photo_200} />
                 </div>
-                <div className="Account__name">{userInfo.first_name} {userInfo.last_name}, level {userInfo.level}</div>
+                <div className="Account__name">{userInfo.first_name} {userInfo.last_name}, level {1}</div>
               </div>
 			  <div className="Account_progress">
-			    <progress value={userInfo.exp} max={300}></progress><br/>
-				{userInfo.exp}/{300}
+			    <progress value={global.vlt[global.vlt_i].karma} max={300}></progress><br/>
+				{global.vlt[global.vlt_i].karma}/{300}
 			  </div>
             </div>
 
@@ -133,7 +144,7 @@ export default class TabAccount extends Component {
                 </center>
 				 <p>&emsp;	    
 				  <label>
-					<input type="checkbox" onChange={this.checkboxChange} />
+					<input type="checkbox" onChange={this.checkboxChange} checked={global.vlt[global.vlt_i].allergy}/>
 					<span>Наличие аллергии на животных {}</span>
 				  </label>
 				</p>
