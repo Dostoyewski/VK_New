@@ -32,7 +32,7 @@ export default function AddressForm() {
           </Grid>
           <span class="textView">Описание</span>
         <input type="text" onChange={(e)=> {
-            global.that.setState({descriiption: e.target.value})
+            global.that.setState({description: e.target.value})
           }}>
           </input>
           </Grid>
