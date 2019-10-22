@@ -72,8 +72,9 @@ export default class TabAccount extends Component {
     var flag = false;
     for (var i = 0; i < global.vlt.length; i++){
       if (global.vlt[i].urlVK === (global.user_info.id).toString()) {
-		global.vlt_i = i;
+		    global.vlt_i = i;
         flag = true;
+        global.userInfo.isAdmin = global.vlt[i].isAdmin;
 		console.log(global.vlt[global.vlt_i]);
       }
     } 
