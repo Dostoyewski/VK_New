@@ -52,6 +52,7 @@ class ShelterDetailSerializer(serializers.ModelSerializer):
         instance.image = validated_data.get('image', instance.image)
         instance.members = validated_data.get('members', instance.members)
         instance.urlVK = validated_data.get('urlVK', instance.urlVK)
+        instance.coordinates = validated_data.get('coordinates', instance.coordinates)
         instance.save()
         return instance
 
@@ -75,5 +76,8 @@ class TaskDetailSerializer(serializers.ModelSerializer):
         instance.place = validated_data.get('place', instance.place)
         instance.date = validated_data.get('date', instance.date)
         instance.shelter = validated_data.get('shelter', instance.shelter)
+        instance.allergy = validated_data.get('allergy', instance.allergy)
+        instance.title = validated_data.get('title', instance.title)
+        instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance

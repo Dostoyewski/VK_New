@@ -11,4 +11,6 @@ urlpatterns = [
     path('shelter/getlist/', ShelterListView.as_view()),
     path('task/create/', TaskCreateView.as_view()),
     path('task/getlist/', TaskListView.as_view()),
+    path('task/detail/<int:pk>', task_detail),
+    path('vlt/detail/<int:pk>', vlt_detail),
 ]

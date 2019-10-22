@@ -1,9 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
 from API.serializers import *
-from back.models import Volonteer, Shelter
+from back.models import Volonteer, Shelter, Task
+from back.serializers import TaskSerializer, VolonteerSerializer
 from API.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from django.http import HttpResponse
+from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 # Create your views here.
 
 class VolonteerCreateView(generics.CreateAPIView):
@@ -43,3 +49,53 @@ class TaskListView(generics.ListAPIView):
 class TaskDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = TaskDetailSerializer
     queryset = Task.objects.all()
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def task_detail(request, pk):
+    """
+    Retrieve, update or delete task
+    """
+    try:
+        snippet = Task.objects.get(pk=pk)
+    except Task.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = TaskSerializer(snippet)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = TaskSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def vlt_detail(request, pk):
+    """
+    Retrieve, update or delete task
+    """
+    try:
+        snippet = Volonteer.objects.get(pk=pk)
+    except Task.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = VolonteerSerializer(snippet)
+        return Response(serializer.data)
+
+    elif request.method == 'PUT':
+        serializer = VolonteerSerializer(snippet, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    elif request.method == 'DELETE':
+        snippet.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
