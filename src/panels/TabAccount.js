@@ -150,7 +150,7 @@ export default class TabAccount extends Component {
 				  </label>
 				</p>
         <div className="Account_admin">
-              {/* {userInfo.id in searcher && */}
+              {userInfo.id in searcher &&
                 <Button
                 variant="contained"
                 color="primary"
@@ -161,7 +161,7 @@ export default class TabAccount extends Component {
             >
                 Страница администратора
               </Button>
-              {/* } */}
+              }
         </div>
               </FormLayout>
             </div>

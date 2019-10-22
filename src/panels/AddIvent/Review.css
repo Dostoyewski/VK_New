@@ -2,5 +2,7 @@
     text-align: center;
     margin: auto;
     font-size: 14px;
-    font: bold;
+}
+span {
+    font:bold;
 }
