@@ -26,6 +26,12 @@ class Volonteer(models.Model):
     shelters = models.CharField(max_length=1000, blank=True)
     card_id = models.CharField(max_length=6, default='AA1234')
 
+STATUS = (
+    (1,"STATUS_DEFAULT"),
+    (2,"STATUS_REQUESTED"),
+    (3,"STATUS_APPROVED"),
+)
+
 class Task(models.Model):
     exp = models.FloatField(default=0)
     description = models.TextField(max_length=1200, blank=True, default='Не заполнено')
@@ -34,3 +40,4 @@ class Task(models.Model):
     shelter = models.IntegerField(blank=True)
     allergy = models.BooleanField(default=True)
     title = models.TextField(max_length=100, blank=True, default='Не заполнено')
+    status = models.IntegerField(choices=STATUS, default=1)
