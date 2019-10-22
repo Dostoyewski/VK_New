@@ -191,10 +191,11 @@ export default class App extends Component {
       case 'VKWebAppGetUserInfoResult':
 	    {
 			
-			data.exp = 280;
+			data.exp = 0;
 			data.level = 3;
 			global.userInfo = data;
-			global.userInfo.isAdmin = true;
+      global.userInfo.isAdmin = false;
+      
 			this.setState({ userInfo: data });
 			break;
 		}

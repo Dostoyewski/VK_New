@@ -49,7 +49,6 @@ export default class TabAccount extends Component {
 	
   checkboxChange = () => {
 	  // ХЕНДЛЕР ДЛЯ ЧЕКБОКСА
-	  console.log('Федор хуй');
 	  fetch('http://127.0.0.1:8000/api/v1/vlt/detail/'+global.vlt[global.vlt_i].id, {
       method: 'PUT', // Method itself
       headers: {
@@ -59,7 +58,9 @@ export default class TabAccount extends Component {
       body: JSON.stringify({
       'id': global.vlt[global.vlt_i].id,
 	  'allergy': !global.vlt[global.vlt_i].allergy
-      })})
+      })});
+      global.vlt[global.vlt_i].allergy = !global.vlt[global.vlt_i].allergy;
+      console.log(global.vlt[global.vlt_i].allergy)
   }
 
   
@@ -144,7 +145,7 @@ export default class TabAccount extends Component {
                 </center>
 				 <p>&emsp;	    
 				  <label>
-					<input type="checkbox" onChange={this.checkboxChange} checked={global.vlt[global.vlt_i].allergy}/>
+					<input type="checkbox" onChange={this.checkboxChange}/>
 					<span>Наличие аллергии на животных {}</span>
 				  </label>
 				</p>
