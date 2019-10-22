@@ -4,8 +4,7 @@ import { PanelHeader, FormLayout, FormStatus, Button, Input, PanelHeaderBack, Vi
   Progress, File, Tabs, TabsItem, Avatar } from '@vkontakte/vkui';
 import './TabAccount.css';
 import TabAdmin from './TabAdmin';
-import { tsMethodSignature } from '@babel/types';
-import vkConnectPromise from '@vkontakte/vk-connect-promise';
+
 
 
 export default class TabAccount extends Component {
@@ -151,11 +150,18 @@ export default class TabAccount extends Component {
 				  </label>
 				</p>
         <div className="Account_admin">
-              {userInfo.id in searcher &&
-                <button onClick = {() => { 
-                    this.setState({loadWorksheep: true})
-                }}> Страница администратора</button>
-              }
+              {/* {userInfo.id in searcher && */}
+                <Button
+                variant="contained"
+                color="primary"
+                onClick={() => 
+                  { 
+                  this.setState({loadWorksheep: true})
+                }}
+            >
+                Страница администратора
+              </Button>
+              {/* } */}
         </div>
               </FormLayout>
             </div>
