@@ -67,7 +67,7 @@ export default class EventInfo extends Component {
             </div>}
 
             <div className="EventInfo__title">{event.title}</div>
-            {event.place && <div className="EventInfo__where">{event.place}<br/>{shelter===undefined ? shelter.title : (<div></div>) }<br/>{event.date}</div>}
+            {event.place && <div className="EventInfo__where">{event.place}<br/>{shelter===undefined ? (<div></div>) : shelter.title }<br/>{event.date}</div>}
 
           
 

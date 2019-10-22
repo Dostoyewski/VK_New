@@ -113,6 +113,9 @@ export default class TabAccount extends Component {
                   value={ global.phone_number }
                   onChange={() => {}}
                 />
+                <center>
+                  <img src='https://barcode.tec-it.com/barcode.ashx?data=AA1234' alt="Карта волонтера" />
+                </center>
 				 <p>&emsp;	    
 				  <label>
 					<input type="checkbox" onChange={this.checkboxChange} />
