@@ -75,12 +75,12 @@ export default class TabAccount extends Component {
               </div> */}
 
               <FormLayout>
-                <Input
+                <Input 
                   top="Дата рождения"
                   value={userInfo.bdate}
                   onChange={() => {}}
                 />
-                <Input
+                <Input 
                   top="Номер телефона"
                   value={ global.phone_number }
                   onChange={() => {}}
