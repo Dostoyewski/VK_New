@@ -16,7 +16,7 @@ export default class TabEvents extends Component {
   };
 
   render() {
-    const items = this.props.events.filter(i => i.status === STATUS_DEFAULT);
+    const items = this.props.events;
 
     return (
       <Fragment>
@@ -27,9 +27,8 @@ export default class TabEvents extends Component {
               key={event.id}
               title={event.title}
               exp={event.exp}
-              where={event.where}
-              caption={event.caption}
-              roles={event.roles}
+              where={event.place}
+              caption={event.description}
               onClick={() => {
                 this.props.update(PANEL_EVENT_INFO, { event });
                 this.props.go(PANEL_EVENT_INFO);

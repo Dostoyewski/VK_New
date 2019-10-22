@@ -13,7 +13,7 @@ function EventCard(props) {
       <div className="EventCard__in">
         <div className="EventCard__header">
           <div className="EventCard__title">{title}</div>
-          <div className="EventCard__exp"><span class="new badge red" data-badge-caption="">{exp}</span></div>
+          <div className="EventCard__exp"><span class="new badge red" data-badge-caption="">{'+ '+exp+' exp'}</span></div>
         </div>
         <div className="EventCard__where">{where}</div>
 

@@ -47,7 +47,12 @@ export default class TabAccount extends Component {
 
   render() {
     const { userInfo } = this.props;
-    console.log(global.jsn)
+    console.log(global.shelters);
+    var searcher = {};
+    for (var i = 0; i < global.shelters.length; i++){
+      searcher[global.shelters[i].urlVK] = global.shelters[i].title;
+    };
+
     return (
       <Fragment>
 		
@@ -89,9 +94,14 @@ export default class TabAccount extends Component {
 				 <p>&emsp;	    
 				  <label>
 					<input type="checkbox" onChange={this.checkboxChange} />
-					<span>у вас есть аллергия {global.jsn.userId}</span>
+					<span>Наличие аллергии на животных {}</span>
 				  </label>
 				</p>
+        <div className="Account_admin">
+              {userInfo.id in searcher &&
+              <p>You are admin of {searcher[userInfo.id]}</p> 
+              }
+        </div>
               </FormLayout>
             </div>
           </div>

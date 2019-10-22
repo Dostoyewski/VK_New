@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 
 export const EventPropType = {
-  title: PropTypes.node,
-  cover: PropTypes.string,
-  exp: PropTypes.node,
-  where: PropTypes.node,
+  allergy: PropTypes.bool,
+  date: PropTypes.string,
   description: PropTypes.string,
+  exp: PropTypes.node,
+  id: PropTypes.node,
+  place: PropTypes.string,
+  shelter: PropTypes.node
 };
 
 export const UserPropType = {

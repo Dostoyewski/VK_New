@@ -32,3 +32,5 @@ class Task(models.Model):
     place = models.TextField(max_length=1200, blank=True, default='Не заполнено')
     date = models.DateField(null=True, blank=True)
     shelter = models.IntegerField(blank=True)
+    allergy = models.BooleanField(default=True)
+    title = models.TextField(max_length=100, blank=True, default='Не заполнено')

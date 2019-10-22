@@ -60,29 +60,9 @@ export default class EventInfo extends Component {
             </div>}
 
             <div className="EventInfo__title">{event.title}</div>
-            {event.where && <div className="EventInfo__where">{event.where}</div>}
+            {event.place && <div className="EventInfo__where">{event.place}</div>}
 
-            {Array.isArray(event.roles) && event.roles.length > 0 &&
-            <div className="EventInfo__roles">
-              <div className="EventInfo__rolesTitle">
-                Кого мы набираем?
-              </div>
-
-              <Separator wide />
-
-              {event.roles.map((role, index) => {
-                return (
-                  <Role
-                    key={index}
-                    name={role.name}
-                    current={role.current}
-                    need={role.need}
-                  />
-                );
-              })}
-
-              <Separator wide />
-            </div>}
+          
 
             <div
               className="EventInfo__description"

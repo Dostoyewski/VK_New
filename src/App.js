@@ -38,8 +38,7 @@ export default class App extends Component {
     .then(response => response.json())
     .then(result => {
       global.jsn = result;
-      console.log(result)
-      console.log(global.jsn, 1)
+      this.update(PANEL_MAIN, {events: global.jsn});
     },
     // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
     // чтобы не перехватывать исключения из ошибок в самих компонентах.
@@ -48,9 +47,24 @@ export default class App extends Component {
     });
     }
 
+    RESPSH = (url) => {
+      fetch(url)
+      .then(response => response.json())
+      .then(result => {
+        global.shelters = result;
+      },
+      // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+      // чтобы не перехватывать исключения из ошибок в самих компонентах.
+      (error) => {
+        console.log(error)
+      });
+      }
+
   componentDidMount() {
-    this.RESP('http://127.0.0.1:8000/api/v1/shelter/getlist/?format=json')
+    this.RESP('http://127.0.0.1:8000/api/v1/task/getlist/?format=json')
+    this.RESPSH('http://127.0.0.1:8000/api/v1/shelter/getlist/?format=json')
     console.log(global.jsn)
+    console.log(global.shelters)
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
     vkConnect.subscribe(this.connectListener);
@@ -67,7 +81,7 @@ export default class App extends Component {
       })
     
 
-    const events = [
+    /*const events = [
       {
         id: 1,
         title: 'Выставка "Почему?"',
@@ -136,8 +150,8 @@ export default class App extends Component {
         }],
         status: STATUS_APPROVED,
       },
-    ];
-    this.update(PANEL_MAIN, { events: events });
+    ];*/
+    //this.update(PANEL_MAIN, { events: events });
 	
 	
   }
