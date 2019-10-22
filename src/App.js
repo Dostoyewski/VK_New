@@ -33,7 +33,7 @@ export default class App extends Component {
     };
   }
 
-  RESP = (url) => {
+    RESP = (url) => {
     fetch(url)
     .then(response => response.json())
     .then(result => {
@@ -177,8 +177,11 @@ export default class App extends Component {
     switch (type) {
       case 'VKWebAppGetUserInfoResult':
 	    {
+			
 			data.exp = 280;
 			data.level = 3;
+			global.userInfo = data;
+			global.userInfo.isAdmin = true;
 			this.setState({ userInfo: data });
 			break;
 		}

@@ -67,7 +67,7 @@ export default class EventInfo extends Component {
             </div>}
 
             <div className="EventInfo__title">{event.title}</div>
-            {event.place && <div className="EventInfo__where">{event.place}<br/>{shelter.title}<br/>{event.date}</div>}
+            {event.place && <div className="EventInfo__where">{event.place}<br/>{shelter===undefined ? shelter.title : (<div></div>) }<br/>{event.date}</div>}
 
           
 
@@ -79,22 +79,24 @@ export default class EventInfo extends Component {
             <div className="EventInfo__footer">
               {event.status === STATUS_DEFAULT &&
               <Button size="xl" onClick={() => {
+				  event.user_id = global.userInfo.id;
 				fetch('http://127.0.0.1:8000/api/v1/task/detail/'+event.id, {method: 'PUT', // Method itself
 																			 headers: {
 																			  'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
 																			 },
-																			 body: JSON.stringify({'id': event.id, 'status': 2}) })
+																			 body: JSON.stringify({'id': event.id, 'status': 2, 'user_id': global.userInfo.id}) })
                 this.props.update(PANEL_EVENT_SENT, { event });
                 this.props.go(PANEL_EVENT_SENT);
               }}>Подать заявку</Button>}
 
               {event.status === STATUS_REQUESTED &&
               <Button size="xl" onClick={() => {
+				  event.user_id = 0;
 				  fetch('http://127.0.0.1:8000/api/v1/task/detail/'+event.id, {method: 'PUT', // Method itself
 																			 headers: {
 																			  'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
 																			 },
-																			 body: JSON.stringify({'id': event.id, 'status': 1}) })
+																			 body: JSON.stringify({'id': event.id, 'status': 1, 'user_id': 0}) })
                 this.props.updateEventStatus(event.id, STATUS_DEFAULT);
                 this.props.update(PANEL_EVENT_INFO, {
                   event: {
@@ -103,6 +105,29 @@ export default class EventInfo extends Component {
                   },
                 });
               }}>Отменить заявку</Button>}
+			  {(global.userInfo.isAdmin && event.user_id) &&
+              <Button size="xl" onClick={() => {
+				  fetch('http://127.0.0.1:8000/api/v1/task/detail/'+event.id, {method: 'PUT', // Method itself
+																			 headers: {
+																			  'Content-type': 'application/json; charset=UTF-8' // Indicates the content 
+																			 },
+																			 body: JSON.stringify({'id': event.id, 'status': 3}) })
+				global.userInfo.exp += event.exp;
+				fetch('http://127.0.0.1:8000/api/v1/task/getlist/?format=json')
+				.then(response => response.json())
+				.then(result => {
+				  global.jsn = result;
+				  this.setState();
+				},
+				// Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+				// чтобы не перехватывать исключения из ошибок в самих компонентах.
+				(error) => {
+				  console.log(error)
+				});
+				
+				this.props.update(PANEL_EVENT_SENT, { event });
+                this.props.go(PANEL_EVENT_SENT);
+              }}>Задание выполнено</Button>}
             </div>
           </div>
         </div>
