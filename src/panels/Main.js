@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { PanelHeader, FixedLayout, Tabs, TabsItem, Select, FormLayout} from '@vkontakte/vkui';
-import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, TAB_DONATE, PANEL_MAIN } from '../constants';
+import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, PANEL_MAIN } from '../constants';
 import TabEvents from './TabEvents';
-import TabAccount from './TabAccount';
+import TabAccount from './TabAccount.js';
 import TabMap from './TabMap';
 import TabWork from './TabWork';
 import Icon20CalendarOutline from '@vkontakte/icons/dist/20/calendar_outline';
