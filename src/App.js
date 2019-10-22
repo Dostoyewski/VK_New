@@ -49,8 +49,29 @@ export default class App extends Component {
     }
 
   componentDidMount() {
+<<<<<<< HEAD
     this.RESP('http://127.0.0.1:8000/api/v1/shelter/getlist/?format=json')
     console.log(global.jsn)
+=======
+	fetch("https://jsonplaceholder.typicode.com/todos/1")
+      .then(res => res.json())
+      .then(
+        (result) => {
+		  global.jsn = result;
+        },
+        // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+        // чтобы не перехватывать исключения из ошибок в самих компонентах.
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      )  
+	  
+	  
+	  
+>>>>>>> 4e64a2f1e3177819a27e2329bfec5307a538bbbc
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
     vkConnect.subscribe(this.connectListener);
@@ -67,6 +88,11 @@ export default class App extends Component {
       })
     
 
+<<<<<<< HEAD
+=======
+
+	
+>>>>>>> 4e64a2f1e3177819a27e2329bfec5307a538bbbc
     const events = [
       {
         id: 1,
@@ -138,6 +164,8 @@ export default class App extends Component {
       },
     ];
     this.update(PANEL_MAIN, { events: events });
+	
+	
   }
 
   connectListener = (e) => {
@@ -234,7 +262,6 @@ export default class App extends Component {
               go={this.go}
             />
           </Panel>
-
           <Panel id={PANEL_ENTER_FINISH}>
             <EnterFinish
               {...this.state[PANEL_ENTER_FINISH]}

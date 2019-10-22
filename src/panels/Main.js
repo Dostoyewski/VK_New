@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { PanelHeader, FixedLayout, Tabs, TabsItem, Select, FormLayout} from '@vkontakte/vkui';
 import { TAB_EVENTS, TAB_WORK, TAB_MAP, TAB_ACCOUNT, TAB_DONATE, PANEL_MAIN } from '../constants';
 import TabEvents from './TabEvents';
-import TabDonate from './TabDonate';
 import TabAccount from './TabAccount';
 import TabMap from './TabMap';
 import TabWork from './TabWork';
@@ -51,9 +50,6 @@ export default class Main extends Component {
 
       case TAB_ACCOUNT:
         return TabAccount;
-		
-	  case TAB_DONATE:
-        return TabDonate;
 
       default:
         return <div>Что-то пошло не так, нет такой вкладки</div>;
