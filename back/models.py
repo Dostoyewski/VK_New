@@ -25,6 +25,7 @@ class Volonteer(models.Model):
     profile_image = models.ImageField(upload_to = 'images', default = 'images/no-img.jpg')
     shelters = models.CharField(max_length=1000, blank=True)
     card_id = models.CharField(max_length=6, default='AA1234')
+    isAdmin = models.BooleanField(default=False)
 
 STATUS = (
     (1,"STATUS_DEFAULT"),
