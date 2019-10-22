@@ -5,6 +5,7 @@ from back.models import Task, Volonteer
 class TaskSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     status = serializers.IntegerField(default=1)
+    user_id = serializers.IntegerField(default=0)
 
     def create(self, validated_data):
         """
@@ -17,6 +18,7 @@ class TaskSerializer(serializers.Serializer):
         Update and return an existing `Task` instance, given the validated data.
         """
         instance.status = validated_data.get('status', instance.status)
+        instance.user_id = validated_data.get('user_id', instance.user_id)
         instance.save()
         return instance
 
