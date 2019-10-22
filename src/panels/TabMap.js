@@ -27,7 +27,7 @@ export default class TabMap extends Component {
                     geometry: [66.539792, 66.588339],
                     properties: {
                     hintContent: 'Улица Манчинского, 19',
-                    balloonContent: 'Ветеренарная клиника "Друзья человека"' 
+                    balloonContent: 'Приют "Лучшие друзья"' 
                     },
                     modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']    
                     }
@@ -37,7 +37,7 @@ export default class TabMap extends Component {
                       geometry: [66.5299819,66.6093746],
                       properties: {
                           hintContent: 'Улица Манчинского, 19',
-                          balloonContent: 'Ветеренарная клиника "Друзья человека"'
+                          balloonContent: 'Ветеринарная клиника "Друзья человека"'
                       },
                       modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
                     }
