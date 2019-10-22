@@ -5,7 +5,7 @@ import { PanelHeader, FormLayout, FormStatus, Button, Input, PanelHeaderBack, Vi
 import './TabAccount.css';
 import TabAdmin from './TabAdmin';
 import { tsMethodSignature } from '@babel/types';
-
+import vkConnectPromise from '@vkontakte/vk-connect-promise';
 
 
 export default class TabAccount extends Component {
@@ -52,6 +52,8 @@ export default class TabAccount extends Component {
 	  console.log('Федор хуй');
   }
 
+  
+
   render() {
     const { userInfo } = this.props;
     global.shelters = [
@@ -73,6 +75,36 @@ export default class TabAccount extends Component {
       }
       ];
     console.log(global.shelters);
+    var flag = false;
+    for (var i = 0; i < global.vlt.length; i++){
+      if (global.vlt[i].urlVK === (global.user_info.id).toString()) {
+
+        flag = true;
+      }
+    } 
+  
+    if (!flag){
+      console.log('flag')
+      fetch('http://127.0.0.1:8000/api/v1/vlt/create/', {
+      method: 'POST', // Method itself
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+      //'birth_date': global.user_info.bdate,
+      'phone': global.phone_number,
+      'vorname': global.user_info.first_name,
+      'nachname': global.user_info.last_name,
+      'urlVK': global.user_info.id,
+      //'profile_image': global.user_info.photo_200,
+      })}).then(function(res){ console.log(res) })
+      .catch(function(res){ console.log(res) });
+
+    }
+
+    console.log(global.user_info)
+    console.log(flag)
     var searcher = {};
     for (var i = 0; i < global.shelters.length; i++){
       searcher[global.shelters[i].urlVK] = global.shelters[i].title;

@@ -84,6 +84,8 @@ export default class App extends Component {
     vkConnect.send('VKWebAppGetUserInfo', {});
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
+
+
     vkConnectPromise
       .send('VKWebAppGetPhoneNumber')
       .then(data => {
@@ -94,6 +96,17 @@ export default class App extends Component {
       .catch(error => {
         // Handling an error
       })
+
+      vkConnectPromise
+      .send('VKWebAppGetUserInfo')
+      .then(data => {
+        // Handling received data
+        console.log(data)
+        global.user_info = data;
+      })
+      .catch(error => {
+        // Handling an error
+      });
     
 
     /*const events = [
