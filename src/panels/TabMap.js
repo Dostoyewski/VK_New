@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { YMaps, Map, Placemark, ZoomControl, GeolocationControl} from 'react-yandex-maps';
-
+import "./TabMap.css"
 
 export default class TabMap extends Component {
   static propTypes = {
@@ -9,25 +9,15 @@ export default class TabMap extends Component {
     go: PropTypes.func.isRequired,
   };
 
-  state = {
-    
-  }
 
-placeMark = {
-    geometry: [66.539792, 66.588339],
-    properties: {
-        hintContent: 'Это хинт',
-        balloonContent: 'Это балун'
-    },
-    modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
-    
-}
   
   render() {
     return (
+
+
       <Fragment>
         <YMaps>
-            <div>
+            <div class="wrapper">
               <Map 
                 width={1000}
                 height={640}
@@ -35,8 +25,8 @@ placeMark = {
                 <Placemark {...{
                     geometry: [66.539792, 66.588339],
                     properties: {
-                        hintContent: 'Это хинт',
-                        balloonContent: 'Это балун'
+                        hintContent: 'Пионерская улица, 6',
+                        balloonContent: 'Приют для животных "Тензор"'
                     },
                     modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
                   }
@@ -45,8 +35,8 @@ placeMark = {
                 <Placemark {...{
                     geometry: [66.5299819,66.6093746],
                     properties: {
-                        hintContent: 'Это хинт',
-                        balloonContent: 'Это балун'
+                        hintContent: 'Улица Манчинского, 19',
+                        balloonContent: 'Ветеренарная клиника "Друзья человека"'
                     },
                     modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
                   }
@@ -55,8 +45,8 @@ placeMark = {
                 <Placemark {...{
                     geometry: [66.5341446,66.6407188],
                     properties: {
-                        hintContent: 'Это хинт',
-                        balloonContent: 'Это балун'
+                        hintContent: 'Улица имени Василия Подшибякина, 46Б',
+                        balloonContent: 'Товары для животных '
                     },
                     modules: ['geoObject.addon.balloon', 'geoObject.addon.hint']
                   }
@@ -68,6 +58,11 @@ placeMark = {
             </div>
           </YMaps>
         <div />
+
+        <div class="loading-element">
+          <img class="loading-element__image" src="https://i.stack.imgur.com/h6viz.gif" width="500" height="500" >
+          </img>
+        </div>
       </Fragment>      
     );
   }
