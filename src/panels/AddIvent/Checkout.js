@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Описание', 'Доплнительные сведения', 'Проверка'];
 
+
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -85,23 +86,31 @@ export default function Checkout() {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-  //   if (activeStep == 3) {
-  //     fetch('http://127.0.0.1:8000/api/v1/task/create/', {method: 'POST', // Method itself
-  //     headers: {
-  //     'Content-type': 'application/json; charset=UTF-8' // Indicates the content
-  //     },
-  //     body: JSON.stringify({
-  //       'titel': global.that.state.title,
-  //       'place': global.that.state.place,
-  //       'description': global.that.state.title,
-  //       'shelter': global.that.state.shelter,
-  //       'date': global.that.state.date,
-  //       'allergy': global.that.state.allergy,
-  //       'exp': global.that.state.XP,
-
-    
-  //   })});
-  //   }
+     if (activeStep == 2) {
+      fetch('http://127.0.0.1:8000/api/v1/task/create/', {method: 'POST', // Method itself
+      headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+       },
+      body: JSON.stringify({
+        'title':  global.that.state.title,
+        'place': global.that.state.place,
+        'description': global.that.state.description,
+        'shelter': global.that.state.shelter,
+        'allergy': global.that.state.allergy,
+        'exp': global.that.state.XP,    
+    })});
+    fetch('http://127.0.0.1:8000/api/v1/task/getlist/?format=json')
+    .then(response => response.json())
+    .then(result => {
+      global.jsn = result;
+    },
+    // Примечание: важно обрабатывать ошибки именно здесь, а не в блоке catch(),
+    // чтобы не перехватывать исключения из ошибок в самих компонентах.
+    (error) => {
+      console.log(error)
+    });
+     }
    };
 
   const handleBack = () => {
