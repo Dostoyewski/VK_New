@@ -13,4 +13,6 @@ urlpatterns = [
     path('task/getlist/', TaskListView.as_view()),
     path('task/detail/<int:pk>', task_detail),
     path('vlt/detail/<int:pk>', vlt_detail),
+    path('vlt/detail/<int:pk>', vlt_detail),
+    path('post/send/', post_detail)
 ]

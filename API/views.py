@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from API.serializers import *
 from back.models import Volonteer, Shelter, Task
-from back.serializers import TaskSerializer, VolonteerSerializer
+from back.serializers import TaskSerializer, VolonteerSerializer, PostSerializer
 from API.permissions import IsOwnerOrReadOnly
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.http import HttpResponse
@@ -99,3 +99,13 @@ def vlt_detail(request, pk):
     elif request.method == 'DELETE':
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PUT'])
+def post_detail(request):
+
+    if request.method == 'PUT':
+        serializer = PostSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

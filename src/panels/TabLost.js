@@ -52,17 +52,21 @@ sending = () => {
 
       //vkConnect.send("VKWebAppCallAPIMethod", {"method": "wall.post", "request_id": "32test", "params": {"owner_id": global.user_info.id, "from_group": 0, "message": 'test', "v":"5.102", "access_token":global.token}});
       vkConnect.send("VKWebAppCallAPIMethod", {"method": "messages.send", "request_id": "32test", "params": {"random_id": "12313132", "user_id": 147993097, "message": 'test', "v":"5.102", "access_token": 'vbxhTPebYzKN38FStxtmSY9SM1tA_E8sVvqjnuFRhYgsbVUVbOBIuTtPToBYbKb8'}});
-    
-    vkConnectPromise
-      .send('VKWebAppGetGeodata')
-      .then(data => {
-        global.lat = data.lat;
-        global.lon = data.lon;
-        console.log(global.lat, global.lon)
-      })
-      .catch(error => {
-        // Handling an error
-      });
+
+      fetch('http://127.0.0.1:8000/api/v1/post/send/', {
+        method: 'PUT', // Method itself
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "description": document.getElementById("dsc").value,
+          "place": document.getElementById("place").value,
+          "custom": document.getElementById("prm").value,
+          "lat": global.lat,
+          "lon": global.lon
+        })});
+      
 }  
 
   render() {
@@ -78,17 +82,17 @@ sending = () => {
           {!this.state.post &&
         <form>
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Описание проблемы</label>
+          <textarea id="dsc" class="materialize-textarea"></textarea>
+          <label for="dsc">Описание проблемы</label>
         </div>
         <div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea"></textarea>
-          <label for="textarea1">Примерное местоположение</label>
+          <textarea id="place" class="materialize-textarea"></textarea>
+          <label for="place">Примерное местоположение</label>
         </div><div class="input-field col s12">
-          <textarea id="textarea1" class="materialize-textarea "></textarea>
-          <label for="textarea1">Особые приметы</label>
+          <textarea id="prm" class="materialize-textarea "></textarea>
+          <label for="prm">Особые приметы</label>
         </div>
-          <Button size="xl" value='Сообщить' onClick={()=>{this.setState({post: true})}}>Сообщить</Button>
+          <Button size="xl" value='Сообщить' onClick={()=>{this.sending(); this.setState({post: true})}}>Сообщить</Button>
         </form> 
         }
          {this.state.post &&

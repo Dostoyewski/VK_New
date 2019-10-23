@@ -43,3 +43,10 @@ class Task(models.Model):
     title = models.TextField(max_length=100, blank=True, default='Не заполнено')
     status = models.IntegerField(choices=STATUS, default=1)
     user_id = models.IntegerField(default=0)
+
+class Post(models.Model):
+    description = models.CharField(max_length=1200,default='Не задано')
+    place = models.CharField(max_length=1200,default='Не задано')
+    custom = models.CharField(max_length=1200,default='Не задано')
+    lat = models.FloatField(default=66)
+    lon = models.FloatField(default=66)

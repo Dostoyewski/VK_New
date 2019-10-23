@@ -85,6 +85,16 @@ export default class App extends Component {
     vkConnect.subscribe(this.connectListener);
     vkConnect.send('VKWebAppGetUserInfo', {});
 
+    vkConnectPromise
+      .send('VKWebAppGetGeodata')
+      .then(data => {
+        global.lat = data.lat;
+        global.lon = data.long;
+        console.log(global.lat, global.lon)
+      })
+      .catch(error => {
+        // Handling an error
+      });
 
     vkConnectPromise
       .send('VKWebAppGetPhoneNumber')
