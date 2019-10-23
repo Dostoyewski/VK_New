@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { PanelHeader, FormLayout, FormStatus, Button, Input, PanelHeaderBack, View, Panel, Slider, Select, Group, Div, InfoRow,
   Progress, File, Tabs, TabsItem, Avatar } from '@vkontakte/vkui';
 import vkConnectPromise from '@vkontakte/vk-connect-promise';
-
+import vkConnect from '@vkontakte/vk-connect';
+import "./TabLost.css"; 
 
 export default class TabLost extends Component {
   static propTypes = {
@@ -24,7 +25,8 @@ export default class TabLost extends Component {
 
     this.state = {
       value1: 50,
-      loadWorksheep: false
+      loadWorksheep: false,
+      post: false
     };
   }
 
@@ -37,6 +39,20 @@ export default class TabLost extends Component {
   }
 
 sending = () => {
+    //.log(vkConnect.send("VKWebAppGetAuthToken", {"app_id": 7175703, "scope": "wall"}))
+    vkConnectPromise
+      .send('VKWebAppGetAuthToken', {"app_id": 7175703, "scope": "wall, notes, messages"})
+      .then(data => {
+        global.token = data.access_token;
+        console.log(global.token)
+      })
+      .catch(error => {
+        // Handling an error
+      });
+
+      //vkConnect.send("VKWebAppCallAPIMethod", {"method": "wall.post", "request_id": "32test", "params": {"owner_id": global.user_info.id, "from_group": 0, "message": 'test', "v":"5.102", "access_token":global.token}});
+      vkConnect.send("VKWebAppCallAPIMethod", {"method": "messages.send", "request_id": "32test", "params": {"random_id": "12313132", "user_id": 147993097, "message": 'test', "v":"5.102", "access_token": 'vbxhTPebYzKN38FStxtmSY9SM1tA_E8sVvqjnuFRhYgsbVUVbOBIuTtPToBYbKb8'}});
+    
     vkConnectPromise
       .send('VKWebAppGetGeodata')
       .then(data => {
@@ -58,15 +74,27 @@ sending = () => {
       );
     return (
       <div>
-          <form>
-          <span class="textView">Описание проблемы</span>
-            <input type='text'></input>
-            <span class="textView">Примерное местоположение</span>
-            <input type='text'></input>
-            <span class="textView">Особые приметы</span>
-            <input type='text'></input>
-            <input type='submit' onClick={this.sending}></input>
-          </form>  
+          <center>
+          {!this.state.post &&
+        <form>
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Описание проблемы</label>
+        </div>
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Примерное местоположение</label>
+        </div><div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea "></textarea>
+          <label for="textarea1">Особые приметы</label>
+        </div>
+          <Button size="xl" value='Сообщить' onClick={()=>{this.setState({post: true})}}>Сообщить</Button>
+        </form> 
+        }
+         {this.state.post &&
+        <label class='posted'>Ваш пост отправлен на обработку!</label>
+        }
+           </center>
       </div>
     );
   }

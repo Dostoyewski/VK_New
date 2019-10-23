@@ -77,7 +77,7 @@ render() {
           </p>
           );
         })}
-        <input type='button' value="Отправить" onClick={this.donate}/>
+        <Button size="xl" value='Сообщить' onClick={this.donate}>Отправить</Button>
         </form>
       </Fragment>
     );
